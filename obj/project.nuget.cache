@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "pqS1YbOD9lRUsxANHbpLl4mxaPbIBHRcqrTw2t4RGkoQ72VDrO8v/7fTfxguPi7Trk7at9/mbt5NhzpgDWliWg==",
+  "dgSpecHash": "1P+qo/iZG47DwXQFp8AvC58u3Lh4Bmcm/Od8aHrJ0gqjnFP2BS0pFIPBr2/CuQ+kdcKxvMaaJUHQDaxCIC3Snw==",
   "success": true,
   "projectFilePath": "C:\\Users\\14435\\source\\repos\\PortScanner\\PortScanner\\PortScanner.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\14435\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512"
+  ],
   "logs": []
 }

@@ -21,24 +21,7 @@ namespace PortScanner
         public ScanLoader()
         {
             InitializeComponent();
-            System.Diagnostics.Debug.WriteLine("HELLO WORDL");
-            /*
-            System.Timers.Timer myTimer = new System.Timers.Timer();
-            myTimer.Elapsed += new ElapsedEventHandler(DisplayTimeEvent);
-            myTimer.Interval = 1000; // 1000 ms is one second
-            myTimer.Start();
-            */
         }
-
-            /*
-        private void DisplayTimeEvent(object source, ElapsedEventArgs e)
-        {
-            progressBar1.Value = (int)((double)loadingIterator / loadingFinal * 100);
-            label3.Text = progressBar1.Value + "%";
-            System.Diagnostics.Debug.WriteLine(label3.Text);
-
-        }
-           */
 
 
         private void Form2_Load(object sender, EventArgs e)

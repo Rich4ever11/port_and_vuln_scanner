@@ -17,3 +17,6 @@ C:\Users\14435\source\repos\PortScanner\PortScanner\obj\Debug\net6.0-windows\ref
 C:\Users\14435\source\repos\PortScanner\PortScanner\obj\Debug\net6.0-windows\PortScanner.Properties.Resources.resources
 C:\Users\14435\source\repos\PortScanner\PortScanner\obj\Debug\net6.0-windows\PortScanner.portScanner.resources
 C:\Users\14435\source\repos\PortScanner\PortScanner\obj\Debug\net6.0-windows\PortScanner.ScanLoader.resources
+C:\Users\14435\source\repos\PortScanner\PortScanner\bin\Debug\net6.0-windows\Newtonsoft.Json.dll
+C:\Users\14435\source\repos\PortScanner\PortScanner\obj\Debug\net6.0-windows\PortScanner.csproj.CopyComplete
+C:\Users\14435\source\repos\PortScanner\PortScanner\obj\Debug\net6.0-windows\PortScanner.VulnerabilityLookUp.resources

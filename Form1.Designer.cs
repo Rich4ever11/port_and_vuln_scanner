@@ -32,7 +32,6 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(portScanner));
             this.scanButton = new System.Windows.Forms.Button();
-            this.pauseButton = new System.Windows.Forms.Button();
             this.ipAddressTextBox = new System.Windows.Forms.MaskedTextBox();
             this.portSpanTwo = new System.Windows.Forms.NumericUpDown();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -42,14 +41,35 @@
             this.Active = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.iPAddressColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.continent = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.country = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.regionName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.city = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.district = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.zip = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.latitude = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.longitude = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.timezone = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.isp = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.org = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.autonomousSystem = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.asname = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.reverseDNS = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.mobile = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.proxy = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.hosting = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label1 = new System.Windows.Forms.Label();
             this.contextMenuStrip3 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.contextMenuStrip4 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.Port = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.serviceName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.searchCVE = new System.Windows.Forms.Button();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.searchCPE = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.portSpanTwo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.portSpanOne)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -63,33 +83,23 @@
             this.scanButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.scanButton.Location = new System.Drawing.Point(12, 29);
             this.scanButton.Name = "scanButton";
-            this.scanButton.Size = new System.Drawing.Size(118, 73);
+            this.scanButton.Size = new System.Drawing.Size(130, 73);
             this.scanButton.TabIndex = 0;
             this.scanButton.Text = "Scan";
             this.scanButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.scanButton.UseVisualStyleBackColor = false;
             this.scanButton.Click += new System.EventHandler(this.button1_Click);
             // 
-            // pauseButton
-            // 
-            this.pauseButton.Image = ((System.Drawing.Image)(resources.GetObject("pauseButton.Image")));
-            this.pauseButton.Location = new System.Drawing.Point(136, 29);
-            this.pauseButton.Name = "pauseButton";
-            this.pauseButton.Size = new System.Drawing.Size(83, 73);
-            this.pauseButton.TabIndex = 1;
-            this.pauseButton.UseVisualStyleBackColor = true;
-            this.pauseButton.Click += new System.EventHandler(this.button1_Click_1);
-            // 
             // ipAddressTextBox
             // 
-            this.ipAddressTextBox.Location = new System.Drawing.Point(12, 108);
+            this.ipAddressTextBox.Location = new System.Drawing.Point(12, 113);
             this.ipAddressTextBox.Name = "ipAddressTextBox";
             this.ipAddressTextBox.Size = new System.Drawing.Size(207, 31);
             this.ipAddressTextBox.TabIndex = 2;
             // 
             // portSpanTwo
             // 
-            this.portSpanTwo.Location = new System.Drawing.Point(372, 109);
+            this.portSpanTwo.Location = new System.Drawing.Point(372, 114);
             this.portSpanTwo.Maximum = new decimal(new int[] {
             65535,
             0,
@@ -118,7 +128,7 @@
             // 
             // portSpanOne
             // 
-            this.portSpanOne.Location = new System.Drawing.Point(225, 108);
+            this.portSpanOne.Location = new System.Drawing.Point(225, 116);
             this.portSpanOne.Maximum = new decimal(new int[] {
             65535,
             0,
@@ -154,7 +164,24 @@
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Active,
             this.nameColumn,
-            this.iPAddressColumn});
+            this.iPAddressColumn,
+            this.continent,
+            this.country,
+            this.regionName,
+            this.city,
+            this.district,
+            this.zip,
+            this.latitude,
+            this.longitude,
+            this.timezone,
+            this.isp,
+            this.org,
+            this.autonomousSystem,
+            this.asname,
+            this.reverseDNS,
+            this.mobile,
+            this.proxy,
+            this.hosting});
             this.dataGridView1.Location = new System.Drawing.Point(12, 154);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
@@ -187,6 +214,142 @@
             this.iPAddressColumn.Name = "iPAddressColumn";
             this.iPAddressColumn.ReadOnly = true;
             this.iPAddressColumn.Width = 150;
+            // 
+            // continent
+            // 
+            this.continent.HeaderText = "Continent";
+            this.continent.MinimumWidth = 8;
+            this.continent.Name = "continent";
+            this.continent.ReadOnly = true;
+            this.continent.Width = 150;
+            // 
+            // country
+            // 
+            this.country.HeaderText = "Country";
+            this.country.MinimumWidth = 8;
+            this.country.Name = "country";
+            this.country.ReadOnly = true;
+            this.country.Width = 150;
+            // 
+            // regionName
+            // 
+            this.regionName.HeaderText = "Region";
+            this.regionName.MinimumWidth = 8;
+            this.regionName.Name = "regionName";
+            this.regionName.ReadOnly = true;
+            this.regionName.Width = 150;
+            // 
+            // city
+            // 
+            this.city.HeaderText = "City";
+            this.city.MinimumWidth = 8;
+            this.city.Name = "city";
+            this.city.ReadOnly = true;
+            this.city.Width = 150;
+            // 
+            // district
+            // 
+            this.district.HeaderText = "District";
+            this.district.MinimumWidth = 8;
+            this.district.Name = "district";
+            this.district.ReadOnly = true;
+            this.district.Width = 150;
+            // 
+            // zip
+            // 
+            this.zip.HeaderText = "Zip";
+            this.zip.MinimumWidth = 8;
+            this.zip.Name = "zip";
+            this.zip.ReadOnly = true;
+            this.zip.Width = 150;
+            // 
+            // latitude
+            // 
+            this.latitude.HeaderText = "Latitude";
+            this.latitude.MinimumWidth = 8;
+            this.latitude.Name = "latitude";
+            this.latitude.ReadOnly = true;
+            this.latitude.Width = 150;
+            // 
+            // longitude
+            // 
+            this.longitude.HeaderText = "Longitude";
+            this.longitude.MinimumWidth = 8;
+            this.longitude.Name = "longitude";
+            this.longitude.ReadOnly = true;
+            this.longitude.Width = 150;
+            // 
+            // timezone
+            // 
+            this.timezone.HeaderText = "Timezone";
+            this.timezone.MinimumWidth = 8;
+            this.timezone.Name = "timezone";
+            this.timezone.ReadOnly = true;
+            this.timezone.Width = 150;
+            // 
+            // isp
+            // 
+            this.isp.HeaderText = "ISP";
+            this.isp.MinimumWidth = 8;
+            this.isp.Name = "isp";
+            this.isp.ReadOnly = true;
+            this.isp.Width = 150;
+            // 
+            // org
+            // 
+            this.org.HeaderText = "Organization";
+            this.org.MinimumWidth = 8;
+            this.org.Name = "org";
+            this.org.ReadOnly = true;
+            this.org.Width = 150;
+            // 
+            // autonomousSystem
+            // 
+            this.autonomousSystem.HeaderText = "Auto Sys.";
+            this.autonomousSystem.MinimumWidth = 8;
+            this.autonomousSystem.Name = "autonomousSystem";
+            this.autonomousSystem.ReadOnly = true;
+            this.autonomousSystem.Width = 150;
+            // 
+            // asname
+            // 
+            this.asname.HeaderText = "Auto Sys. Name";
+            this.asname.MinimumWidth = 8;
+            this.asname.Name = "asname";
+            this.asname.ReadOnly = true;
+            this.asname.Width = 150;
+            // 
+            // reverseDNS
+            // 
+            this.reverseDNS.HeaderText = "Reverse DNS";
+            this.reverseDNS.MinimumWidth = 8;
+            this.reverseDNS.Name = "reverseDNS";
+            this.reverseDNS.ReadOnly = true;
+            this.reverseDNS.Width = 150;
+            // 
+            // mobile
+            // 
+            this.mobile.HeaderText = "Mobile";
+            this.mobile.MinimumWidth = 8;
+            this.mobile.Name = "mobile";
+            this.mobile.ReadOnly = true;
+            this.mobile.Width = 150;
+            // 
+            // proxy
+            // 
+            this.proxy.HeaderText = "Proxy";
+            this.proxy.MinimumWidth = 8;
+            this.proxy.Name = "proxy";
+            this.proxy.ReadOnly = true;
+            this.proxy.Width = 150;
+            // 
+            // hosting
+            // 
+            this.hosting.HeaderText = "Hosting";
+            this.hosting.MinimumWidth = 8;
+            this.hosting.Name = "hosting";
+            this.hosting.ReadOnly = true;
+            this.hosting.Width = 150;
             // 
             // label1
             // 
@@ -241,41 +404,71 @@
             this.serviceName.ReadOnly = true;
             this.serviceName.Width = 350;
             // 
-            // radioButton1
+            // textBox1
             // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(225, 38);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(108, 29);
-            this.radioButton1.TabIndex = 18;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "TCP Scan";
-            this.radioButton1.UseVisualStyleBackColor = true;
+            this.textBox1.Location = new System.Drawing.Point(575, 71);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(339, 31);
+            this.textBox1.TabIndex = 18;
             // 
-            // radioButton2
+            // searchCVE
             // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(225, 73);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(114, 29);
-            this.radioButton2.TabIndex = 19;
-            this.radioButton2.TabStop = true;
-            this.radioButton2.Text = "UDP Scan";
-            this.radioButton2.UseVisualStyleBackColor = true;
+            this.searchCVE.Location = new System.Drawing.Point(920, 67);
+            this.searchCVE.Name = "searchCVE";
+            this.searchCVE.Size = new System.Drawing.Size(125, 34);
+            this.searchCVE.TabIndex = 19;
+            this.searchCVE.Text = "Search CVE";
+            this.searchCVE.UseVisualStyleBackColor = true;
+            this.searchCVE.Click += new System.EventHandler(this.searchCVE_Click);
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(575, 113);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(339, 31);
+            this.textBox2.TabIndex = 20;
+            // 
+            // textBox3
+            // 
+            this.textBox3.Location = new System.Drawing.Point(575, 30);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(339, 31);
+            this.textBox3.TabIndex = 22;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(920, 27);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(125, 34);
+            this.button1.TabIndex = 23;
+            this.button1.Text = "Search CWE";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // searchCPE
+            // 
+            this.searchCPE.Location = new System.Drawing.Point(920, 110);
+            this.searchCPE.Name = "searchCPE";
+            this.searchCPE.Size = new System.Drawing.Size(125, 34);
+            this.searchCPE.TabIndex = 21;
+            this.searchCPE.Text = "Search CPE";
+            this.searchCPE.UseVisualStyleBackColor = true;
             // 
             // portScanner
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1057, 701);
-            this.Controls.Add(this.radioButton2);
-            this.Controls.Add(this.radioButton1);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.textBox3);
+            this.Controls.Add(this.searchCPE);
+            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.searchCVE);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.dataGridView2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.portSpanOne);
             this.Controls.Add(this.scanButton);
-            this.Controls.Add(this.pauseButton);
             this.Controls.Add(this.ipAddressTextBox);
             this.Controls.Add(this.portSpanTwo);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
@@ -295,7 +488,6 @@
         #endregion
 
         private Button scanButton;
-        private Button pauseButton;
         private MaskedTextBox ipAddressTextBox;
         private NumericUpDown portSpanTwo;
         private ContextMenuStrip contextMenuStrip1;
@@ -306,12 +498,33 @@
         private ContextMenuStrip contextMenuStrip3;
         private ContextMenuStrip contextMenuStrip4;
         private DataGridView dataGridView2;
+        private DataGridViewTextBoxColumn Port;
+        private DataGridViewTextBoxColumn serviceName;
         private DataGridViewTextBoxColumn Active;
         private DataGridViewTextBoxColumn nameColumn;
         private DataGridViewTextBoxColumn iPAddressColumn;
-        private DataGridViewTextBoxColumn Port;
-        private DataGridViewTextBoxColumn serviceName;
-        private RadioButton radioButton1;
-        private RadioButton radioButton2;
+        private DataGridViewTextBoxColumn continent;
+        private DataGridViewTextBoxColumn country;
+        private DataGridViewTextBoxColumn regionName;
+        private DataGridViewTextBoxColumn city;
+        private DataGridViewTextBoxColumn district;
+        private DataGridViewTextBoxColumn zip;
+        private DataGridViewTextBoxColumn latitude;
+        private DataGridViewTextBoxColumn longitude;
+        private DataGridViewTextBoxColumn timezone;
+        private DataGridViewTextBoxColumn isp;
+        private DataGridViewTextBoxColumn org;
+        private DataGridViewTextBoxColumn autonomousSystem;
+        private DataGridViewTextBoxColumn asname;
+        private DataGridViewTextBoxColumn reverseDNS;
+        private DataGridViewTextBoxColumn mobile;
+        private DataGridViewTextBoxColumn proxy;
+        private DataGridViewTextBoxColumn hosting;
+        private TextBox textBox1;
+        private Button searchCVE;
+        private TextBox textBox2;
+        private TextBox textBox3;
+        private Button button1;
+        private Button searchCPE;
     }
 }
