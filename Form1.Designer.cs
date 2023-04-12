@@ -66,10 +66,9 @@
             this.serviceName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.searchCVE = new System.Windows.Forms.Button();
-            this.textBox2 = new System.Windows.Forms.TextBox();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
-            this.searchCPE = new System.Windows.Forms.Button();
+            this.textBox2 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.portSpanTwo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.portSpanOne)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -78,28 +77,30 @@
             // 
             // scanButton
             // 
+            this.scanButton.AccessibleDescription = "Scans the ports of the target placed into the below textbox";
+            this.scanButton.AccessibleName = "Port Scan Button";
             this.scanButton.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.scanButton.Image = ((System.Drawing.Image)(resources.GetObject("scanButton.Image")));
             this.scanButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.scanButton.Location = new System.Drawing.Point(12, 29);
             this.scanButton.Name = "scanButton";
-            this.scanButton.Size = new System.Drawing.Size(130, 73);
+            this.scanButton.Size = new System.Drawing.Size(178, 73);
             this.scanButton.TabIndex = 0;
-            this.scanButton.Text = "Scan";
+            this.scanButton.Text = "Scan Target";
             this.scanButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.scanButton.UseVisualStyleBackColor = false;
             this.scanButton.Click += new System.EventHandler(this.button1_Click);
             // 
             // ipAddressTextBox
             // 
-            this.ipAddressTextBox.Location = new System.Drawing.Point(12, 113);
+            this.ipAddressTextBox.Location = new System.Drawing.Point(12, 117);
             this.ipAddressTextBox.Name = "ipAddressTextBox";
-            this.ipAddressTextBox.Size = new System.Drawing.Size(207, 31);
+            this.ipAddressTextBox.Size = new System.Drawing.Size(306, 31);
             this.ipAddressTextBox.TabIndex = 2;
             // 
             // portSpanTwo
             // 
-            this.portSpanTwo.Location = new System.Drawing.Point(372, 114);
+            this.portSpanTwo.Location = new System.Drawing.Point(424, 117);
             this.portSpanTwo.Maximum = new decimal(new int[] {
             65535,
             0,
@@ -111,7 +112,7 @@
             0,
             0});
             this.portSpanTwo.Name = "portSpanTwo";
-            this.portSpanTwo.Size = new System.Drawing.Size(141, 31);
+            this.portSpanTwo.Size = new System.Drawing.Size(103, 31);
             this.portSpanTwo.TabIndex = 4;
             this.portSpanTwo.Value = new decimal(new int[] {
             1023,
@@ -128,7 +129,7 @@
             // 
             // portSpanOne
             // 
-            this.portSpanOne.Location = new System.Drawing.Point(225, 116);
+            this.portSpanOne.Location = new System.Drawing.Point(324, 117);
             this.portSpanOne.Maximum = new decimal(new int[] {
             65535,
             0,
@@ -140,7 +141,7 @@
             0,
             0});
             this.portSpanOne.Name = "portSpanOne";
-            this.portSpanOne.Size = new System.Drawing.Size(141, 31);
+            this.portSpanOne.Size = new System.Drawing.Size(94, 31);
             this.portSpanOne.TabIndex = 9;
             this.portSpanOne.Value = new decimal(new int[] {
             1,
@@ -406,14 +407,15 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(575, 71);
+            this.textBox1.Location = new System.Drawing.Point(533, 77);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(339, 31);
+            this.textBox1.PlaceholderText = "CVE ID";
+            this.textBox1.Size = new System.Drawing.Size(381, 31);
             this.textBox1.TabIndex = 18;
             // 
             // searchCVE
             // 
-            this.searchCVE.Location = new System.Drawing.Point(920, 67);
+            this.searchCVE.Location = new System.Drawing.Point(920, 74);
             this.searchCVE.Name = "searchCVE";
             this.searchCVE.Size = new System.Drawing.Size(125, 34);
             this.searchCVE.TabIndex = 19;
@@ -421,47 +423,40 @@
             this.searchCVE.UseVisualStyleBackColor = true;
             this.searchCVE.Click += new System.EventHandler(this.searchCVE_Click);
             // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(575, 113);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(339, 31);
-            this.textBox2.TabIndex = 20;
-            // 
             // textBox3
             // 
-            this.textBox3.Location = new System.Drawing.Point(575, 30);
+            this.textBox3.Location = new System.Drawing.Point(533, 113);
             this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(339, 31);
+            this.textBox3.PlaceholderText = "Vendor Name";
+            this.textBox3.Size = new System.Drawing.Size(150, 31);
             this.textBox3.TabIndex = 22;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(920, 27);
+            this.button1.Location = new System.Drawing.Point(843, 114);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(125, 34);
+            this.button1.Size = new System.Drawing.Size(202, 34);
             this.button1.TabIndex = 23;
-            this.button1.Text = "Search CWE";
+            this.button1.Text = "Search CVE By Vendor";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click_2);
             // 
-            // searchCPE
+            // textBox2
             // 
-            this.searchCPE.Location = new System.Drawing.Point(920, 110);
-            this.searchCPE.Name = "searchCPE";
-            this.searchCPE.Size = new System.Drawing.Size(125, 34);
-            this.searchCPE.TabIndex = 21;
-            this.searchCPE.Text = "Search CPE";
-            this.searchCPE.UseVisualStyleBackColor = true;
+            this.textBox2.Location = new System.Drawing.Point(687, 113);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.PlaceholderText = "Vendor Product";
+            this.textBox2.Size = new System.Drawing.Size(150, 31);
+            this.textBox2.TabIndex = 24;
             // 
             // portScanner
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1057, 701);
+            this.Controls.Add(this.textBox2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.searchCPE);
-            this.Controls.Add(this.textBox2);
             this.Controls.Add(this.searchCVE);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.dataGridView2);
@@ -522,9 +517,8 @@
         private DataGridViewTextBoxColumn hosting;
         private TextBox textBox1;
         private Button searchCVE;
-        private TextBox textBox2;
         private TextBox textBox3;
         private Button button1;
-        private Button searchCPE;
+        private TextBox textBox2;
     }
 }
