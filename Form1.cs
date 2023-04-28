@@ -79,8 +79,10 @@ namespace PortScanner
             //if the list has 4 items in it then we loop through each item and make sure that the number is not under 0 or over 255
             for (int i = 0; i < list.Length; i++)
             {
+                //Obtains the integer of the specific number
                 int value = 0;
                 bool result = int.TryParse(list[i], out value);
+                //Checks if the result of the parse was successfull and if the value is between 0 and 255
                 if (result == false)
                 {
                     return false;
@@ -113,7 +115,6 @@ namespace PortScanner
                     iPAddress = ipHostInfo.AddressList[0];
                     return iPAddress;
             }
-            // Manage of Socket's Exceptions
             catch (Exception error)
             {
                 System.Diagnostics.Debug.WriteLine(error);
@@ -123,8 +124,9 @@ namespace PortScanner
    
         private int scanPort(IPAddress ipAddress,int port)
             {
-                //Initilization of variables
+                //Initilization of variables (TCP Client)
                 TcpClient tcpClient = new TcpClient();
+                //Checks if the IP Address is valid
                 if (ipAddress == IPAddress.IPv6None)
                 {
                     Console.WriteLine("IP Address Not Found");
@@ -132,6 +134,7 @@ namespace PortScanner
                 }
                 try
                 {
+                    //Tries to preform a connection upon a port and wait one second
                     IPEndPoint ipEndPoint = new IPEndPoint(ipAddress, port);
                     if (tcpClient.ConnectAsync(ipEndPoint).Wait(1000))
                     {
@@ -160,7 +163,9 @@ namespace PortScanner
 
         private void button1_Click(object sender, EventArgs e)
         {
+            //Checks if the port span has been inputted and arent empty
             if (portSpanOne.Text == "" || portSpanTwo.Text == "") {
+                //If not open a window letting the user know the port span was not displayed
                 string messageBoxText = "Please enter a valid value for a port span";
                 string caption = "Invalid Port Span";
                 DialogResult result = MessageBox.Show(messageBoxText, caption, MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -170,8 +175,10 @@ namespace PortScanner
                 }
                 return;
             }
+            //Checks if the IP Address text box is filled
             if (ipAddressTextBox.Text == "")
             {
+                //If not open a window letting the user know a Input was not placed
                 string messageBoxText = "Please enter a IP Address or Website";
                 string caption = "No Input Target Found";
                 DialogResult result = MessageBox.Show(messageBoxText, caption, MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -181,9 +188,11 @@ namespace PortScanner
                 }
                 return;
             }
+            //Obtains the IPAddress data type value from the ipAddress text box
             IPAddress ipAddress = obtainIpAddress(ipAddressTextBox.Text);
             if (ipAddress == null)
             {
+                //If no IPAddress data type was obtained let the user know
                 string messageBoxText = "Please enter a valid IP-Address";
                 string caption = "Invalid IP Address";
                 DialogResult result = MessageBox.Show(messageBoxText, caption, MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -195,6 +204,7 @@ namespace PortScanner
             } 
             else
             {
+                //Checks to see if the item has already been scanned
                 if (targetMachineDictionary.ContainsKey(ipAddressTextBox.Text))
                 {
                     //deletes a already scanned target
@@ -206,10 +216,12 @@ namespace PortScanner
                     this.targetMachineDictionary.Remove(ipAddressTextBox.Text);
                     RowsToDelete.Clear();
                 }
+                //Create a new target machine for the application
                 targetMachine newMachine = new targetMachine();
                 newMachine.targetIpAddress = ipAddress.ToString();
                 try
                 {
+                    //Obtain information pertaining to the ipaddress provided
                     string apiParam = newMachine.targetIpAddress + "?fields=status,message,continent,continentCode,country,countryCode,region,regionName,city,district,zip,lat,lon,timezone,offset,currency,isp,org,as,asname,reverse,mobile,proxy,hosting,query";
                     dynamic ipAddressScanResult = createAPICall("http://ip-api.com/json/", apiParam);
                     newMachine.targetStatus = "Open";
@@ -236,10 +248,11 @@ namespace PortScanner
                 {
 
                 }
-
+                //Load the loading window
                 ScanLoader frm2 = new ScanLoader();
                 frm2.scanPreformed = "Scanning Ports...";
                 frm2.Show();
+                //scan each port in parallel to speed up the scanning of ports
                 var result = Parallel.For((int)(portSpanOne.Value), (int)(portSpanTwo.Value), (i, state) =>
                 {
                     int foundPort = scanPort(ipAddress, i);
@@ -251,6 +264,7 @@ namespace PortScanner
                 });
                 try
                 {
+                    //extra check of ports seeing if any previously scanned ports were not found
                     dynamic secondPartyScan = createAPICall("https://internetdb.shodan.io/", newMachine.targetIpAddress);
                     List<string> thirdPartyOpenPortsScan = secondPartyScan["ports"].ToObject<List<string>>();
                     List<string> finalList = new List<string>();
@@ -261,17 +275,21 @@ namespace PortScanner
                             finalList.Add(port);
                         }
                     }
+                    //Obtain the vulnerabilities/tags/cpes
                     newMachine.vulnList = secondPartyScan["vulns"].ToObject<List<string>>();
                     newMachine.TagInfoList = secondPartyScan["tags"].ToObject<List<string>>();
                     newMachine.cpesList = secondPartyScan["cpes"].ToObject<List<string>>();
                     newMachine.openPorts = finalList.Union(newMachine.openPorts).ToList();
                 } catch
                 {
+                    //set the vuln, cpes, tags list to empty if there is an issue
                     newMachine.vulnList = new List<string>();
                     newMachine.cpesList = new List<string>();
                     newMachine.TagInfoList = new List<string>();
                 }
+                //close the loading window
                 frm2.Close();
+                //Add the target machine to the dictionary and the datagridview
                 this.targetMachineDictionary.Add(newMachine.targetName, newMachine);
                 dataGridView1.Rows.Add(newMachine.targetStatus, newMachine.targetName, newMachine.targetIpAddress, newMachine.targetContinent, newMachine.targetCountry, newMachine.targetRegionName, newMachine.targetCity,
                  newMachine.targetDistrict, newMachine.targetZipcode, newMachine.targetLatitude, newMachine.targetLongitude, newMachine.targetTimezone, newMachine.targetInternetServiceProvider,
@@ -314,8 +332,10 @@ namespace PortScanner
 
         private void numericUpDown2_ValueChanged(object sender, EventArgs e)
         {
-            if (portSpanOne.Value > portSpanTwo.Value)
+            //Check if the start port is greater than the end port
+            if ((int)portSpanOne.Value > (int)portSpanTwo.Value)
             {
+                //if it is let the user know about the issue through an error window
                 string messageBoxText = "Please enter a valid starting port";
                 string caption = "Invalid Start Port";
                 DialogResult result = MessageBox.Show(messageBoxText, caption, MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -329,6 +349,7 @@ namespace PortScanner
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+            //Displays the ports that were found open
             dataGridView2.Rows.Clear();
             DataGridView dgv = new DataGridView();
             dgv = dataGridView1;
@@ -344,8 +365,10 @@ namespace PortScanner
 
         private void portSpanTwo_ValueChanged(object sender, EventArgs e)
         {
+            //Check if the end port is less than the start port
             if ((int)portSpanTwo.Value < (int)portSpanOne.Value)
             {
+                //if it is let the user know about the issue through an error window
                 string messageBoxText = "Please enter a valid ending port";
                 string caption = "Invalid End Port";
                 DialogResult result = MessageBox.Show(messageBoxText, caption, MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -358,6 +381,7 @@ namespace PortScanner
 
         private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+            //loads the vulnerabilities to the vulnerability window
             DataGridView dgvOne = new DataGridView();
             DataGridView dgvTwo = new DataGridView();
             dgvOne = dataGridView1;
@@ -6425,6 +6449,7 @@ namespace PortScanner
         {
             try
             {
+                //Empties the vuln windows values and obtains the CVE information
                 vulnerabilityList = new List<string>();
                 vulnerabilityListExtensive = new Newtonsoft.Json.Linq.JArray();
                 dynamic resultCVEAPI = createAPICall("http://cve.circl.lu/api/cve/", textBox1.Text.ToString());
@@ -6434,6 +6459,7 @@ namespace PortScanner
             }
             catch
             {
+                //Empties the vuln windows values and lets the user know an error was found
                 vulnerabilityList = new List<string>();
                 vulnerabilityListExtensive = new Newtonsoft.Json.Linq.JArray();
                 string messageBoxText = "Invalid CVE Input, Please Try Again";
