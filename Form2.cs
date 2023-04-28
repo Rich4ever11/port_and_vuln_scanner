@@ -15,8 +15,7 @@ namespace PortScanner
 {
     public partial class ScanLoader : Form
     {
-        public int loadingIterator { get; set; }
-        public int loadingFinal { get; set; }
+        public string scanPreformed { get; set; }
 
         public ScanLoader()
         {
@@ -26,7 +25,7 @@ namespace PortScanner
 
         private void Form2_Load(object sender, EventArgs e)
         {
-
+            label2.Text = scanPreformed;
         }
 
 

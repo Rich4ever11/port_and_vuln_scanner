@@ -97,6 +97,7 @@
             this.ipAddressTextBox.Name = "ipAddressTextBox";
             this.ipAddressTextBox.Size = new System.Drawing.Size(306, 31);
             this.ipAddressTextBox.TabIndex = 2;
+            this.ipAddressTextBox.Text = "127.0.0.1";
             // 
             // portSpanTwo
             // 
@@ -359,7 +360,6 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(0, 25);
             this.label1.TabIndex = 13;
-            this.label1.Click += new System.EventHandler(this.label1_Click_2);
             // 
             // contextMenuStrip3
             // 
@@ -466,7 +466,7 @@
             this.Controls.Add(this.scanButton);
             this.Controls.Add(this.ipAddressTextBox);
             this.Controls.Add(this.portSpanTwo);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "portScanner";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Port Scanner";

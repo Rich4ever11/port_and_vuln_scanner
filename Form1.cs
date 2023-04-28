@@ -17,6 +17,7 @@ using System.Collections;
 using Newtonsoft.Json.Linq;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using System.Xml;
 
 struct targetMachine
 {
@@ -59,6 +60,11 @@ namespace PortScanner
             InitializeComponent();
             Font LargeFont = new Font("Arial", 10);
             scanButton.Font = LargeFont;
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
         }
 
         private bool checkValidIPAddress(string ipAddress)
@@ -154,6 +160,27 @@ namespace PortScanner
 
         private void button1_Click(object sender, EventArgs e)
         {
+            if (portSpanOne.Text == "" || portSpanTwo.Text == "") {
+                string messageBoxText = "Please enter a valid value for a port span";
+                string caption = "Invalid Port Span";
+                DialogResult result = MessageBox.Show(messageBoxText, caption, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (result == DialogResult.OK)
+                {
+                    ipAddressTextBox.Text = "";
+                }
+                return;
+            }
+            if (ipAddressTextBox.Text == "")
+            {
+                string messageBoxText = "Please enter a IP Address or Website";
+                string caption = "No Input Target Found";
+                DialogResult result = MessageBox.Show(messageBoxText, caption, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (result == DialogResult.OK)
+                {
+                    ipAddressTextBox.Text = "";
+                }
+                return;
+            }
             IPAddress ipAddress = obtainIpAddress(ipAddressTextBox.Text);
             if (ipAddress == null)
             {
@@ -164,9 +191,21 @@ namespace PortScanner
                 {
                     ipAddressTextBox.Text = "";
                 }
-            } else
+                return;
+            } 
+            else
             {
-
+                if (targetMachineDictionary.ContainsKey(ipAddressTextBox.Text))
+                {
+                    //deletes a already scanned target
+                    List<DataGridViewRow> RowsToDelete = new List<DataGridViewRow>();
+                    foreach (DataGridViewRow row in dataGridView1.Rows)
+                        if (row.Cells[1].Value != null &&
+                             row.Cells[1].Value.ToString() == ipAddressTextBox.Text) RowsToDelete.Add(row);
+                    foreach (DataGridViewRow row in RowsToDelete) dataGridView1.Rows.Remove(row);
+                    this.targetMachineDictionary.Remove(ipAddressTextBox.Text);
+                    RowsToDelete.Clear();
+                }
                 targetMachine newMachine = new targetMachine();
                 newMachine.targetIpAddress = ipAddress.ToString();
                 try
@@ -199,8 +238,7 @@ namespace PortScanner
                 }
 
                 ScanLoader frm2 = new ScanLoader();
-                frm2.loadingIterator = (int)portSpanOne.Value;
-                frm2.loadingFinal = (int)portSpanTwo.Value;
+                frm2.scanPreformed = "Scanning Ports...";
                 frm2.Show();
                 var result = Parallel.For((int)(portSpanOne.Value), (int)(portSpanTwo.Value), (i, state) =>
                 {
@@ -215,10 +253,18 @@ namespace PortScanner
                 {
                     dynamic secondPartyScan = createAPICall("https://internetdb.shodan.io/", newMachine.targetIpAddress);
                     List<string> thirdPartyOpenPortsScan = secondPartyScan["ports"].ToObject<List<string>>();
+                    List<string> finalList = new List<string>();
+                    foreach (string port in thirdPartyOpenPortsScan)
+                    {
+                        if (Int16.Parse(port) <= (int)portSpanTwo.Value)
+                        {
+                            finalList.Add(port);
+                        }
+                    }
                     newMachine.vulnList = secondPartyScan["vulns"].ToObject<List<string>>();
                     newMachine.TagInfoList = secondPartyScan["tags"].ToObject<List<string>>();
                     newMachine.cpesList = secondPartyScan["cpes"].ToObject<List<string>>();
-                    newMachine.openPorts = thirdPartyOpenPortsScan.Union(newMachine.openPorts).ToList();
+                    newMachine.openPorts = finalList.Union(newMachine.openPorts).ToList();
                 } catch
                 {
                     newMachine.vulnList = new List<string>();
@@ -228,9 +274,9 @@ namespace PortScanner
                 frm2.Close();
                 this.targetMachineDictionary.Add(newMachine.targetName, newMachine);
                 dataGridView1.Rows.Add(newMachine.targetStatus, newMachine.targetName, newMachine.targetIpAddress, newMachine.targetContinent, newMachine.targetCountry, newMachine.targetRegionName, newMachine.targetCity,
-                     newMachine.targetDistrict, newMachine.targetZipcode, newMachine.targetLatitude, newMachine.targetLongitude, newMachine.targetTimezone, newMachine.targetInternetServiceProvider,
-                     newMachine.targetOrganization, newMachine.targetAutonomousSystem, newMachine.targetAutonomousSystemName, newMachine.targetReverseDNS, newMachine.targetMobileBool,
-                     newMachine.targetProxyBool, newMachine.targetHostingBool);
+                 newMachine.targetDistrict, newMachine.targetZipcode, newMachine.targetLatitude, newMachine.targetLongitude, newMachine.targetTimezone, newMachine.targetInternetServiceProvider,
+                 newMachine.targetOrganization, newMachine.targetAutonomousSystem, newMachine.targetAutonomousSystemName, newMachine.targetReverseDNS, newMachine.targetMobileBool,
+                 newMachine.targetProxyBool, newMachine.targetHostingBool);
             }
         }
 
@@ -260,60 +306,11 @@ namespace PortScanner
                 }
 
             }
-            else
-            {
-                Console.WriteLine(response);
-                Console.WriteLine("{0} ({1})", (int)response.StatusCode, response.ReasonPhrase);
-            }
 
-            // Make any other calls using HttpClient here.
-
-            // Dispose once all HttpClient calls are complete. This is not necessary if the containing object will be disposed of; for example in this case the HttpClient instance will be disposed automatically when the application terminates so the following call is superfluous.
             client.Dispose();
             return jsonResult;
         }
 
-
-
-        private void button1_Click_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void tabPage1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void richTextBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void groupBox1_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
 
         private void numericUpDown2_ValueChanged(object sender, EventArgs e)
         {
@@ -327,16 +324,6 @@ namespace PortScanner
                     portSpanOne.Value = 1;
                 }
             }
-        }
-
-        private void label1_Click_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
-        {
-
         }
 
 
@@ -355,14 +342,9 @@ namespace PortScanner
                     
         }
 
-        private void label1_Click_2(object sender, EventArgs e)
-        {
-
-        }
-
         private void portSpanTwo_ValueChanged(object sender, EventArgs e)
         {
-            if (portSpanTwo.Value < portSpanOne.Value)
+            if ((int)portSpanTwo.Value < (int)portSpanOne.Value)
             {
                 string messageBoxText = "Please enter a valid ending port";
                 string caption = "Invalid End Port";
@@ -372,10 +354,6 @@ namespace PortScanner
                     portSpanTwo.Value = portSpanOne.Value;
                 }
             }
-        }
-
-        private void richTextBox1_TextChanged_1(object sender, EventArgs e)
-        {
         }
 
         private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -394,6 +372,7 @@ namespace PortScanner
             } else
             {
                 vulnerabilityList = new List<string>();
+                vulnerabilityListExtensive = new Newtonsoft.Json.Linq.JArray();
                 vulnerabilityList = targetMachineDictionary[targetCellNameIpAddress].vulnList;
                 VulnerabilityLookUp vulnForm = new VulnerabilityLookUp();
                 vulnForm.Show();
@@ -6442,16 +6421,6 @@ namespace PortScanner
             }
         }
 
-        private void radioButton1_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
         private void searchCVE_Click(object sender, EventArgs e)
         {
             try
@@ -6494,6 +6463,7 @@ namespace PortScanner
             }
             catch
             {
+                vulnerabilityList = new List<string>();
                 vulnerabilityListExtensive = new Newtonsoft.Json.Linq.JArray();
                 string messageBoxText = "Invalid Product or Vendor Input, Please Try Again";
                 string caption = "Invalid Vendor";
